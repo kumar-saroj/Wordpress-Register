@@ -1,6 +1,4 @@
 <?php
-require get_template_directory().'/Mailin.php';
-
 	$msg = '';
 	if(isset($_POST['hackathonsubmit'])){        
 		$teamname = $_REQUEST['teamname'];
@@ -33,39 +31,10 @@ require get_template_directory().'/Mailin.php';
 			 add_user_meta( $user, 'ustatus', 0);
 			
 				if ( $user && !is_wp_error( $user ) ) {
-				$code = sha1( $user . time() );
-				$activation_link = add_query_arg( array( 'key' => $code, 'user' => $user ), get_permalink(92));
-				add_user_meta( $user, 'has_to_be_activated', $code, true );
-				add_user_meta( $user, 'key_status', 0, true );
+					 $msg =  "<div class='alert alert-success'>Thank you for registring, A validation email has been sent to you. Please click on the link to verify.</div>";
 				
-				
-			$mailin = new Mailin('ash2020ajatus@yandex.com', '2X6nME5QZRfjTwq4');
-			$mailin->
-			addTo($emailid, 'ASH 2020')->
-			setFrom('ash2020ajatus@yandex.com', 'ASH 2020')->
-			setReplyTo('ash2020ajatus@yandex.com','ASH 2020')->
-			setSubject('ASH2020 Activation')->
-			setText('HACKATHON ACTIVATION')->
-			setHtml('
-				<table width="100%" bgcolor="#e2e2e2" style="padding:20px; font-size:19px">
-					<tr>
-						<td align="left" bgcolor="#fff" style="padding-left:15px">
-							<p><strong>Hello '.$teamname.'</strong></p>
-							<p>You have a new account at ASH2020</p>
-							<p><strong>Account details:</strong></p>
-							<p>Email : '.$emailid.'</p>
-							<p>Set your password and sign in by clicking the link below.</p>
-							<p>'.$activation_link.'</p>
-							<p>Regards<br>Team ASH2020</p>
-						</td>
-					</tr>
-					
-					
-				</table>
-			');
-			$res = $mailin->send();
 			}
-			 $msg =  "<div class='alert alert-success'>Thank you for registring, A validation email has been sent to you. Please click on the link to verify.</div>";
+			
 			}
 		
 		}
